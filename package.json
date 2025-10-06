@@ -1,0 +1,8 @@
+{
+    "name": "cfop-algorithms",
+    "version": "25w41",
+    "description": "A collection of CFOP algorithms for solving a Rubik's Cube.",
+    "dependencies": {
+        "three": "^0.180.0"
+    }
+}
