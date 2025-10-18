@@ -1,5 +1,5 @@
 import { ItemWrapper, ModuleHeader } from 'lifeforge-ui'
-import { Link } from 'react-router'
+import { Link } from 'shared'
 
 function CFOPAlgorithms() {
   return (

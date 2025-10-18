@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { GoBackButton, ItemWrapper } from 'lifeforge-ui'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'shared'
 
 import { algsetAlgs, algsetScrambles } from '../../algorithms/OLL'
 import { DEFAULT_CUBE, applyMoves } from '../../functions/genCube'
