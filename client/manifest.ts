@@ -10,5 +10,5 @@ export default {
     'cfop-algorithms/oll': lazy(() => import('@/pages/OLL')),
     'cfop-algorithms/pll': lazy(() => import('@/pages/PLL'))
   },
-  category: '06.Information'
+  category: 'Information'
 } satisfies ModuleConfig
