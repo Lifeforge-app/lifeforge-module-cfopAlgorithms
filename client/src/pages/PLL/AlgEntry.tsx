@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { ItemWrapper } from 'lifeforge-ui'
+import { Card } from 'lifeforge-ui'
 import { useEffect, useRef } from 'react'
 
 import { algsetAlgs } from '../../algorithms/PLL'
@@ -97,7 +97,7 @@ function AlgEntry({
   }, [])
 
   return (
-    <ItemWrapper as="li" className="flex-between gap-8">
+    <Card as="li" className="flex-between gap-8">
       <div className="flex items-center gap-8">
         <div className="bg-bg-200/70 dark:bg-bg-800/50 rounded-md p-2">
           <div ref={containerRef} className="relative flex flex-col gap-0.5">
@@ -171,7 +171,7 @@ function AlgEntry({
         </div>
       </div>
       <p className="text-bg-500 mr-8 text-xl">{algsetAlgs[index].group}</p>
-    </ItemWrapper>
+    </Card>
   )
 }
 

@@ -1,4 +1,4 @@
-import { ItemWrapper, ModuleHeader } from 'lifeforge-ui'
+import { Card, ModuleHeader } from 'lifeforge-ui'
 import { Link } from 'shared'
 
 function CFOPAlgorithms() {
@@ -11,7 +11,7 @@ function CFOPAlgorithms() {
           OLL: 'Orientation of the Last Layer',
           PLL: 'Permutation of the Last Layer'
         }).map(([key, value]) => (
-          <ItemWrapper
+          <Card
             key={key}
             as={Link}
             className="flex-center flex-col"
@@ -26,7 +26,7 @@ function CFOPAlgorithms() {
               {key}
             </h2>
             <p className="mt-2 text-center text-xl">{value}</p>
-          </ItemWrapper>
+          </Card>
         ))}
       </div>
     </>

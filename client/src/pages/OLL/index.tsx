@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { GoBackButton, ItemWrapper } from 'lifeforge-ui'
+import { GoBackButton, Card } from 'lifeforge-ui'
 import { useNavigate } from 'shared'
 
 import { algsetAlgs, algsetScrambles } from '../../algorithms/OLL'
@@ -33,7 +33,7 @@ function CFOPF2L() {
           cube = applyMoves(cube, algset[0])
 
           return (
-            <ItemWrapper key={index} as="li" className="flex-between gap-8">
+            <Card key={index} as="li" className="flex-between gap-8">
               <div className="flex items-center gap-8">
                 <div className="bg-bg-200/70 dark:bg-bg-800/50 rounded-md p-2">
                   <div className="flex flex-col gap-0.5">
@@ -111,7 +111,7 @@ function CFOPF2L() {
               <p className="text-bg-500 mr-8 text-xl">
                 {algsetAlgs[index].group}
               </p>
-            </ItemWrapper>
+            </Card>
           )
         })}
       </ul>

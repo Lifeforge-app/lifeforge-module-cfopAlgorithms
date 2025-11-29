@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { GoBackButton, ItemWrapper } from 'lifeforge-ui'
+import { GoBackButton, Card } from 'lifeforge-ui'
 import { useNavigate } from 'shared'
 
 import Cube from './Cube'
@@ -203,7 +203,7 @@ function CFOPF2L(): React.ReactElement {
                   </p>
                   <ul className="mt-4 grid grid-cols-2 gap-3">
                     {subsubsection.algs.map(({ alg, pattern, warn }, i) => (
-                      <ItemWrapper
+                      <Card
                         key={i}
                         as="li"
                         className="flex items-center gap-6"
@@ -223,7 +223,7 @@ function CFOPF2L(): React.ReactElement {
                             </p>
                           ))}
                         </div>
-                      </ItemWrapper>
+                      </Card>
                     ))}
                   </ul>
                 </div>
