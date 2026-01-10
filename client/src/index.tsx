@@ -1,6 +1,8 @@
 import { Card, ModuleHeader } from 'lifeforge-ui'
 import { Link } from 'shared'
 
+import './index.css'
+
 function CFOPAlgorithms() {
   return (
     <>
