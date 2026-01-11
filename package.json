@@ -7,7 +7,7 @@
   },
   "version": "0.0.2",
   "author": "Melvin Chia <melvinchia623600@gmail.com>",
-  "description": "A collection of CFOP algorithms for solving a Rubik's Cube.",
+  "description": "Master the Rubik's Cube with visualized CFOP algorithms.",
   "scripts": {
     "types": "cd client && bun tsc",
     "build:client": "cd client && bun run vite build"
