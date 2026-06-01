@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import { Card } from 'lifeforge-ui'
 import { useEffect, useRef } from 'react'
+
+import { Card } from '@lifeforge/ui'
 
 import { algsetAlgs } from '../../algorithms/PLL'
 import { type DEFAULT_CUBE } from '../../functions/genCube'

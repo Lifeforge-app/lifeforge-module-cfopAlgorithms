@@ -1,5 +1,5 @@
-import { GoBackButton } from 'lifeforge-ui'
-import { useNavigate } from 'shared'
+import { GoBackButton } from '@lifeforge/ui'
+import { useNavigate } from '@lifeforge/shared'
 
 import { algsetScrambles } from '../../algorithms/PLL'
 import { DEFAULT_CUBE, applyMoves } from '../../functions/genCube'

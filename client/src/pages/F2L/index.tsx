@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { GoBackButton, Card } from 'lifeforge-ui'
-import { useNavigate } from 'shared'
+import { GoBackButton, Card } from '@lifeforge/ui'
+import { useNavigate } from '@lifeforge/shared'
 
 import Cube from './Cube'
 

@@ -1,5 +1,5 @@
-import { Card, ModuleHeader } from 'lifeforge-ui'
-import { Link } from 'shared'
+import { Card, ModuleHeader } from '@lifeforge/ui'
+import { Link } from '@lifeforge/shared'
 
 import './index.css'
 
