@@ -2,8 +2,6 @@ import { Link } from 'react-router'
 
 import { Card, ModuleHeader } from '@lifeforge/ui'
 
-import './index.css'
-
 function CFOPAlgorithms() {
   return (
     <>
