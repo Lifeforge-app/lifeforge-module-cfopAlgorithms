@@ -1,5 +1,6 @@
+import { Link } from 'react-router'
+
 import { Card, ModuleHeader } from '@lifeforge/ui'
-import { Link } from '@lifeforge/shared'
 
 import './index.css'
 

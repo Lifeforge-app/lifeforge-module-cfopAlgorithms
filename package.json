@@ -23,9 +23,9 @@
     "category": "Information"
   },
   "peerDependencies": {
+    "@lifeforge/api": "workspace:*",
     "@lifeforge/server-utils": "workspace:*",
     "@lifeforge/ui": "workspace:*",
-    "@lifeforge/shared": "workspace:*",
     "@lifeforge/federation": "workspace:*",
     "@lifeforge/configs": "workspace:*"
   }

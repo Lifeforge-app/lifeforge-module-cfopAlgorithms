@@ -1,5 +1,5 @@
 import { GoBackButton } from '@lifeforge/ui'
-import { useNavigate } from '@lifeforge/shared'
+import { useNavigate } from 'react-router'
 
 import { algsetScrambles } from '../../algorithms/PLL'
 import { DEFAULT_CUBE, applyMoves } from '../../functions/genCube'
