@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import { GoBackButton, Card } from '@lifeforge/ui'
 import { useNavigate } from 'react-router'
+
+import { Card, GoBackButton } from '@lifeforge/ui'
 
 import Cube from './Cube'
 
@@ -203,11 +204,7 @@ function CFOPF2L(): React.ReactElement {
                   </p>
                   <ul className="mt-4 grid grid-cols-2 gap-3">
                     {subsubsection.algs.map(({ alg, pattern, warn }, i) => (
-                      <Card
-                        key={i}
-                        as="li"
-                        className="flex items-center gap-6"
-                      >
+                      <Card key={i} as="li" className="flex items-center gap-6">
                         <div className="bg-bg-100 shadow-custom dark:bg-bg-800/50 rounded-md p-1 pb-2">
                           <Cube pattern={pattern} />
                         </div>
