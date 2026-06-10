@@ -23,7 +23,6 @@ function AlgEntry({
   index: number
 }) {
   const refs = useRef<Array<HTMLDivElement | null>>(Array(9).map(() => null))
-
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
