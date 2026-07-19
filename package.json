@@ -11,7 +11,7 @@
   "description": "Master the Rubik's Cube with visualized CFOP algorithms.",
   "scripts": {
     "typecheck": "cd client && tsc",
-    "build": "build:client",
+    "build": "pnpm run build:client",
     "build:client": "cd client && vite build"
   },
   "dependencies": {
@@ -26,10 +26,11 @@
   },
   "peerDependencies": {
     "@lifeforge/api": "workspace:*",
-    "@lifeforge/server-utils": "workspace:*",
-    "@lifeforge/localization": "workspace:*",
-    "@lifeforge/ui": "workspace:*",
+    "@lifeforge/configs": "workspace:*",
     "@lifeforge/federation": "workspace:*",
-    "@lifeforge/configs": "workspace:*"
+    "@lifeforge/localization": "workspace:*",
+    "@lifeforge/pocketbase": "workspace:*",
+    "@lifeforge/server-utils": "workspace:*",
+    "@lifeforge/ui": "workspace:*"
   }
 }
