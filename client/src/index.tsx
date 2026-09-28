@@ -1,12 +1,17 @@
 import { Link } from 'react-router'
 
-import { Card, ModuleHeader } from '@lifeforge/ui'
+import { Card, Grid, ModuleHeader, Text } from '@lifeforge/ui'
 
 function CFOPAlgorithms() {
   return (
     <>
       <ModuleHeader />
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Grid
+        gap="lg"
+        mt="lg"
+        templateCols={{ base: 1, md: 2, lg: 3 }}
+        width="100%"
+      >
         {Object.entries({
           F2L: 'First Two Layers',
           OLL: 'Orientation of the Last Layer',
@@ -14,22 +19,31 @@ function CFOPAlgorithms() {
         }).map(([key, value]) => (
           <Card
             key={key}
+            align="center"
             as={Link}
-            className="flex-center flex-col"
+            justify="center"
             to={`/cfop-algorithms/${key.toLowerCase()}`}
           >
             <img
               alt={key}
-              className="mb-8 size-48"
               src={`/assets/apps/CFOPAlgorithms/landing-${key.toLowerCase()}.webp`}
+              style={{ height: '12rem', marginBottom: '2rem', width: '12rem' }}
             />
-            <h2 className="text-center text-5xl font-semibold tracking-wider">
+            <Text
+              align="center"
+              as="h2"
+              size="5xl"
+              tracking="wider"
+              weight="semibold"
+            >
               {key}
-            </h2>
-            <p className="mt-2 text-center text-xl">{value}</p>
+            </Text>
+            <Text align="center" as="p" color="muted" mt="sm" size="xl">
+              {value}
+            </Text>
           </Card>
         ))}
-      </div>
+      </Grid>
     </>
   )
 }

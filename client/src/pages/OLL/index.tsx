@@ -1,121 +1,150 @@
-import clsx from 'clsx'
 import { useNavigate } from 'react-router'
 
-import { Card, GoBackButton } from '@lifeforge/ui'
+import {
+  Box,
+  Card,
+  Flex,
+  GoBackButton,
+  Stack,
+  Text,
+  colorWithOpacity
+} from '@lifeforge/ui'
 
 import { algsetAlgs, algsetScrambles } from '../../algorithms/OLL'
 import { DEFAULT_CUBE, applyMoves } from '../../functions/genCube'
+
+const getCellColor = (isYellow: boolean) =>
+  isYellow ? 'yellow-500' : ({ base: 'bg-400', dark: 'bg-700' } as const)
 
 function CFOPF2L() {
   const navigate = useNavigate()
 
   return (
     <>
-      <header className="space-y-1">
+      <Stack as="header" gap="xs">
         <GoBackButton
           onClick={() => {
             navigate('/cfop-algorithms')
           }}
         />
-        <div className="flex-between flex">
-          <h1 className="flex items-center gap-3 text-2xl font-semibold sm:text-3xl">
-            <img
-              alt="OLL"
-              className="size-16"
-              src="/assets/apps/CFOPAlgorithms/landing-oll.webp"
-            />
+        <Flex align="center" as="h1" gap="sm">
+          <img
+            alt="OLL"
+            src="/assets/apps/CFOPAlgorithms/landing-oll.webp"
+            style={{ height: '4rem', width: '4rem' }}
+          />
+          <Text size={{ base: '2xl', sm: '3xl' }} weight="semibold">
             Orientation of the Last Layer
-          </h1>
-        </div>
-      </header>
-      <ul className="my-8 space-y-3">
+          </Text>
+        </Flex>
+      </Stack>
+      <Stack as="ul" gap="sm" my="xl">
         {algsetScrambles.map((algset, index) => {
           let cube = DEFAULT_CUBE
           cube = applyMoves(cube, algset[0])
 
           return (
-            <Card key={index} as="li" className="flex-between gap-8">
-              <div className="flex items-center gap-8">
-                <div className="bg-bg-200/70 dark:bg-bg-800/50 rounded-md p-2">
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex gap-0.5">
-                      <div className="size-5"></div>
+            <Card
+              key={index}
+              align="center"
+              as="li"
+              direction="row"
+              gap="xl"
+              justify="between"
+            >
+              <Flex align="center" gap="xl">
+                <Box
+                  bg={{
+                    base: colorWithOpacity('bg-200', '70%'),
+                    dark: colorWithOpacity('bg-800', '50%')
+                  }}
+                  p="sm"
+                  r="md"
+                >
+                  <Flex direction="column" style={{ gap: '0.125rem' }}>
+                    <Flex style={{ gap: '0.125rem' }}>
+                      <Box height="1.25rem" width="1.25rem" />
                       {cube.back[0].reverse().map((col, i) => (
-                        <div key={i} className="flex size-5 items-end gap-0.5">
-                          <div
-                            className={clsx(
-                              'h-1 w-5 rounded-full',
-                              col === 'Y'
-                                ? 'bg-yellow-500'
-                                : 'bg-bg-400 dark:bg-bg-700'
-                            )}
-                          ></div>
-                        </div>
+                        <Flex
+                          key={i}
+                          align="end"
+                          height="1.25rem"
+                          width="1.25rem"
+                        >
+                          <Box
+                            bg={getCellColor(col === 'Y')}
+                            height="0.25rem"
+                            r="full"
+                            width="1.25rem"
+                          />
+                        </Flex>
                       ))}
-                      <div className="size-5"></div>
-                    </div>
+                      <Box height="1.25rem" width="1.25rem" />
+                    </Flex>
                     {cube.top.map((row, i) => (
-                      <div key={i} className="flex gap-0.5">
-                        <div className="flex size-5 justify-end">
-                          <div
-                            className={clsx(
-                              'h-5 w-1 rounded-full',
-                              cube.left[0][i] === 'Y'
-                                ? 'bg-yellow-500'
-                                : 'bg-bg-400 dark:bg-bg-700'
-                            )}
-                          ></div>
-                        </div>
+                      <Flex key={i} style={{ gap: '0.125rem' }}>
+                        <Flex height="1.25rem" justify="end" width="1.25rem">
+                          <Box
+                            bg={getCellColor(cube.left[0][i] === 'Y')}
+                            height="1.25rem"
+                            r="full"
+                            width="0.25rem"
+                          />
+                        </Flex>
                         {row.map((col, i) => (
-                          <div
+                          <Box
                             key={i}
-                            className={clsx(
-                              'size-5 rounded-sm',
-                              col === 'Y'
-                                ? 'bg-yellow-500'
-                                : 'bg-bg-400 dark:bg-bg-700'
-                            )}
-                          ></div>
+                            bg={getCellColor(col === 'Y')}
+                            height="1.25rem"
+                            r="sm"
+                            width="1.25rem"
+                          />
                         ))}
-                        <div className="flex size-5 justify-start">
-                          <div
-                            className={clsx(
-                              'h-5 w-1 rounded-full',
-                              cube.right[0][2 - i] === 'Y'
-                                ? 'bg-yellow-500'
-                                : 'bg-bg-400 dark:bg-bg-700'
-                            )}
-                          ></div>
-                        </div>
-                      </div>
+                        <Flex height="1.25rem" justify="start" width="1.25rem">
+                          <Box
+                            bg={getCellColor(cube.right[0][2 - i] === 'Y')}
+                            height="1.25rem"
+                            r="full"
+                            width="0.25rem"
+                          />
+                        </Flex>
+                      </Flex>
                     ))}
-                    <div className="flex gap-0.5">
-                      <div className="size-5"></div>
+                    <Flex style={{ gap: '0.125rem' }}>
+                      <Box height="1.25rem" width="1.25rem" />
                       {cube.front[0].map((col, i) => (
-                        <div key={i} className="flex size-5 items-start">
-                          <div
-                            className={clsx(
-                              'h-1 w-5 rounded-full',
-                              col === 'Y'
-                                ? 'bg-yellow-500'
-                                : 'bg-bg-400 dark:bg-bg-700'
-                            )}
-                          ></div>
-                        </div>
+                        <Flex
+                          key={i}
+                          align="start"
+                          height="1.25rem"
+                          width="1.25rem"
+                        >
+                          <Box
+                            bg={getCellColor(col === 'Y')}
+                            height="0.25rem"
+                            r="full"
+                            width="1.25rem"
+                          />
+                        </Flex>
                       ))}
-                      <div className="size-5"></div>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-xl">{algsetAlgs[index].alg[0]}</p>
-              </div>
-              <p className="text-bg-500 mr-8 text-xl">
+                      <Box height="1.25rem" width="1.25rem" />
+                    </Flex>
+                  </Flex>
+                </Box>
+                <Text size="xl">{algsetAlgs[index].alg[0]}</Text>
+              </Flex>
+              <Text
+                color="muted"
+                display={{ sm: 'block', base: 'none' }}
+                mr="xl"
+                size="xl"
+              >
                 {algsetAlgs[index].group}
-              </p>
+              </Text>
             </Card>
           )
         })}
-      </ul>
+      </Stack>
     </>
   )
 }

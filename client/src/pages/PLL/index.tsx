@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router'
 
-import { GoBackButton } from '@lifeforge/ui'
+import { Flex, GoBackButton, Stack, Text } from '@lifeforge/ui'
 
 import { algsetScrambles } from '../../algorithms/PLL'
 import { DEFAULT_CUBE, applyMoves } from '../../functions/genCube'
@@ -11,31 +11,31 @@ function CFOPPLL() {
 
   return (
     <>
-      <header className="space-y-1">
+      <Stack as="header" gap="xs">
         <GoBackButton
           onClick={() => {
             navigate('/cfop-algorithms')
           }}
         />
-        <div className="flex-between flex">
-          <h1 className="flex items-center gap-3 text-2xl font-semibold sm:text-3xl">
-            <img
-              alt="PLL"
-              className="size-16"
-              src="/assets/apps/CFOPAlgorithms/landing-pll.webp"
-            />
+        <Flex align="center" as="h1" gap="sm">
+          <img
+            alt="PLL"
+            src="/assets/apps/CFOPAlgorithms/landing-pll.webp"
+            style={{ height: '4rem', width: '4rem' }}
+          />
+          <Text size={{ base: '2xl', sm: '3xl' }} weight="semibold">
             Permutation of the Last Layer
-          </h1>
-        </div>
-      </header>
-      <ul className="my-8 space-y-3">
+          </Text>
+        </Flex>
+      </Stack>
+      <Stack as="ul" gap="sm" my="xl">
         {algsetScrambles.map((algset, index) => {
           let cube = DEFAULT_CUBE
           cube = applyMoves(cube, algset[0])
 
           return <AlgEntry key={index} cube={cube} index={index} />
         })}
-      </ul>
+      </Stack>
     </>
   )
 }

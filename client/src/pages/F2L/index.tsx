@@ -1,7 +1,15 @@
-import clsx from 'clsx'
 import { useNavigate } from 'react-router'
 
-import { Card, GoBackButton } from '@lifeforge/ui'
+import {
+  Box,
+  Card,
+  Flex,
+  GoBackButton,
+  Grid,
+  Stack,
+  Text,
+  colorWithOpacity
+} from '@lifeforge/ui'
 
 import Cube from './Cube'
 
@@ -29,7 +37,10 @@ const sections: Array<{
           {
             name: (
               <>
-                White sticker facing <span className="text-custom-500">Up</span>
+                White sticker facing{' '}
+                <Text as="span" color="primary">
+                  Up
+                </Text>
               </>
             ),
             algs: [
@@ -87,13 +98,17 @@ const sections: Array<{
             name: (
               <>
                 White sticker facing{' '}
-                <span className="text-custom-500">Side / Front</span>
+                <Text as="span" color="primary">
+                  Side / Front
+                </Text>
               </>
             ),
             desc: (
               <>
                 Stickers on the U face are{' '}
-                <span className="text-custom-500">different</span>
+                <Text as="span" color="primary">
+                  different
+                </Text>
               </>
             ),
             algs: [
@@ -164,70 +179,111 @@ function CFOPF2L(): React.ReactElement {
 
   return (
     <>
-      <header className="space-y-1">
+      <Stack as="header" gap="xs">
         <GoBackButton
           onClick={() => {
             navigate('/cfop-algorithms')
           }}
         />
-        <div className="flex-between flex">
-          <h1 className="flex items-center gap-3 text-2xl font-semibold sm:text-3xl">
-            <img
-              alt="F2L"
-              className="size-16"
-              src="/assets/apps/CFOPAlgorithms/landing-f2l.webp"
-            />
+        <Flex align="center" as="h1" gap="sm">
+          <img
+            alt="F2L"
+            src="/assets/apps/CFOPAlgorithms/landing-f2l.webp"
+            style={{ height: '4rem', width: '4rem' }}
+          />
+          <Text size={{ base: '2xl', sm: '3xl' }} weight="semibold">
             First Two Layers
-          </h1>
-        </div>
-      </header>
+          </Text>
+        </Flex>
+      </Stack>
       {sections.map((section, i) => (
-        <section key={`section-${i + 1}`} className="my-8 space-y-3">
-          <p className="text-custom-500 w-full text-center text-lg font-semibold tracking-wider">
+        <Stack key={`section-${i + 1}`} as="section" gap="sm" my="xl">
+          <Text
+            align="center"
+            as="p"
+            color="primary"
+            size="lg"
+            tracking="wider"
+            weight="semibold"
+          >
             SECTION {i + 1}
-          </p>
-          <h2 className="text-center text-4xl font-semibold tracking-widest">
+          </Text>
+          <Text
+            align="center"
+            as="h2"
+            size="4xl"
+            tracking="widest"
+            weight="semibold"
+          >
             {section.name}
-          </h2>
+          </Text>
           {section.subsections.map((subsection, j) => (
-            <div key={`subsection-${j + 1}`} className="space-y-8">
-              <h3 className="pt-8 text-center text-2xl font-semibold tracking-wider">
+            <Stack key={`subsection-${j + 1}`} gap="xl">
+              <Text
+                align="center"
+                as="h3"
+                pt="xl"
+                size="2xl"
+                tracking="wider"
+                weight="semibold"
+              >
                 {subsection.name}
-              </h3>
+              </Text>
               {subsection.subsubsections.map((subsubsection, k) => (
-                <div key={`subsubsection-${k + 1}`}>
-                  <h4 className="pt-4 text-2xl font-semibold tracking-wider">
+                <Box key={`subsubsection-${k + 1}`}>
+                  <Text
+                    as="h4"
+                    pt="md"
+                    size="2xl"
+                    tracking="wider"
+                    weight="semibold"
+                  >
                     {subsubsection.name}
-                  </h4>
-                  <p className="text-bg-500 mt-2 text-lg">
+                  </Text>
+                  <Text as="p" color="muted" mt="sm" size="lg">
                     {subsubsection.desc}
-                  </p>
-                  <ul className="mt-4 grid grid-cols-2 gap-3">
+                  </Text>
+                  <Grid as="ul" gap="sm" mt="md" templateCols={{ sm: 2 }}>
                     {subsubsection.algs.map(({ alg, pattern, warn }, i) => (
-                      <Card key={i} as="li" className="flex items-center gap-6">
-                        <div className="bg-bg-100 shadow-custom dark:bg-bg-800/50 rounded-md p-1 pb-2">
+                      <Card
+                        key={i}
+                        align="center"
+                        as="li"
+                        direction="row"
+                        gap="lg"
+                      >
+                        <Box
+                          shadow
+                          bg={{
+                            base: 'bg-100',
+                            dark: colorWithOpacity('bg-800', '50%')
+                          }}
+                          p="xs"
+                          pb="sm"
+                          r="md"
+                        >
                           <Cube pattern={pattern} />
-                        </div>
-                        <div className="space-y-2 text-lg font-medium">
+                        </Box>
+                        <Stack gap="sm">
                           {alg.map((a, j) => (
-                            <p
+                            <Text
                               key={a}
-                              className={clsx(
-                                warn?.includes(j) && 'text-red-400'
-                              )}
+                              color={warn?.includes(j) ? 'red-400' : undefined}
+                              size="lg"
+                              weight="medium"
                             >
                               {a}
-                            </p>
+                            </Text>
                           ))}
-                        </div>
+                        </Stack>
                       </Card>
                     ))}
-                  </ul>
-                </div>
+                  </Grid>
+                </Box>
               ))}
-            </div>
+            </Stack>
           ))}
-        </section>
+        </Stack>
       ))}
     </>
   )
