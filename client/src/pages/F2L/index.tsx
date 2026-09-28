@@ -264,7 +264,7 @@ function CFOPF2L(): React.ReactElement {
                         >
                           <Cube pattern={pattern} />
                         </Box>
-                        <Stack gap="sm">
+                        <Stack>
                           {alg.map((a, j) => (
                             <Text
                               key={a}
