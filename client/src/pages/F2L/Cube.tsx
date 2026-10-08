@@ -15,7 +15,15 @@ const WHITE = 0xffffff
 
 const GRAY = 0x404040
 
-const COLORS = {
+type Sticker = 'r' | 'o' | 'y' | 'g' | 'b' | 'w' | '-'
+
+type Row = [Sticker, Sticker, Sticker]
+
+type Face = [Row, Row, Row]
+
+type Side = [Face, Face, Face]
+
+const COLORS: Record<Sticker, number> = {
   r: RED,
   o: ORANGE,
   y: YELLOW,
@@ -31,31 +39,14 @@ function Cube({ pattern }: { pattern: string }) {
   useEffect(() => {
     if (ref.current === null) return
 
-    const patternArray = pattern.split(' ')
-
-    const side: Array<Array<Array<'r' | 'o' | 'y' | 'g' | 'b' | 'w' | '-'>>> =
-      []
-
-    for (let i = 0; i < 3; i++) {
-      side.push([])
-
-      for (let j = 0; j < 3; j++) {
-        side[i].push([])
-
-        for (let k = 0; k < 3; k++) {
-          side[i][j].push(
-            patternArray[i][j * 3 + k] as
-              | 'r'
-              | 'o'
-              | 'y'
-              | 'g'
-              | 'b'
-              | 'w'
-              | '-'
-          )
-        }
-      }
-    }
+    const side: Side = pattern.split(' ').map(
+      face =>
+        [
+          [face[0], face[1], face[2]],
+          [face[3], face[4], face[5]],
+          [face[6], face[7], face[8]]
+        ] as Face
+    ) as Side
 
     const scene = new THREE.Scene()
 
@@ -90,8 +81,8 @@ function Cube({ pattern }: { pattern: string }) {
         new THREE.MeshBasicMaterial({ color: GRAY })
       ]
 
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
+      for (const i of [0, 1, 2] as const) {
+        for (const j of [0, 1, 2] as const) {
           if (x === 2 - i && y === 2 && z === j) {
             materials[2] = new THREE.MeshBasicMaterial({
               color: COLORS[side[2][i][j]]
@@ -100,8 +91,8 @@ function Cube({ pattern }: { pattern: string }) {
         }
       }
 
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
+      for (const i of [0, 1, 2] as const) {
+        for (const j of [0, 1, 2] as const) {
           if (x === j && y === 2 - i && z === 2) {
             materials[4] = new THREE.MeshBasicMaterial({
               color: COLORS[side[1][i][j]]
@@ -110,8 +101,8 @@ function Cube({ pattern }: { pattern: string }) {
         }
       }
 
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
+      for (const i of [0, 1, 2] as const) {
+        for (const j of [0, 1, 2] as const) {
           if (x === 0 && y === 2 - i && z === j) {
             materials[1] = new THREE.MeshBasicMaterial({
               color: COLORS[side[0][i][j]]

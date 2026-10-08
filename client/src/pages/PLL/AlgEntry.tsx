@@ -11,15 +11,19 @@ function AlgEntry({
   cube: typeof DEFAULT_CUBE
   index: number
 }) {
+  const algs = algsetAlgs[index]
+
+  if (!algs) return null
+
   return (
     <Card align="center" as="li" direction="row" gap="xl" justify="between">
       <Flex align="center" gap="xl">
-        <Cube arrows={algsetAlgs[index].arrows} cube={cube} />
+        <Cube arrows={algs.arrows} cube={cube} />
         <Box>
           <Text as="h4" color="primary" size="lg" weight="semibold">
-            {algsetAlgs[index].name}
+            {algs.name}
           </Text>
-          <Text size="xl">{algsetAlgs[index].alg[0]}</Text>
+          <Text size="xl">{algs.alg[0]}</Text>
         </Box>
       </Flex>
       <Text
@@ -28,7 +32,7 @@ function AlgEntry({
         mr="xl"
         size="xl"
       >
-        {algsetAlgs[index].group}
+        {algs.group}
       </Text>
     </Card>
   )

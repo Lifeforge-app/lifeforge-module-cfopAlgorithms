@@ -1,13 +1,21 @@
+type Color = 'Y' | 'W' | 'R' | 'O' | 'B' | 'G'
+
+type Row = [Color, Color, Color]
+
+type Face = [Row, Row, Row]
+
+const REVERSE = [2, 1, 0] as const
+
 interface Cube {
-  top: string[][]
-  bottom: string[][]
-  front: string[][]
-  back: string[][]
-  left: string[][]
-  right: string[][]
+  top: Face
+  bottom: Face
+  front: Face
+  back: Face
+  left: Face
+  right: Face
 }
 
-function rotateFace(face: string[][]): string[][] {
+function rotateFace(face: Face): Face {
   return [
     [face[2][0], face[1][0], face[0][0]],
     [face[2][1], face[1][1], face[0][1]],
@@ -15,7 +23,7 @@ function rotateFace(face: string[][]): string[][] {
   ]
 }
 
-function rotateFaceCounter(face: string[][]): string[][] {
+function rotateFaceCounter(face: Face): Face {
   return [
     [face[0][2], face[1][2], face[2][2]],
     [face[0][1], face[1][1], face[2][1]],
@@ -35,7 +43,7 @@ function applyMove(cube: Cube, move: string): Cube {
   if (move === 'U') {
     newCube.top = rotateFace(top)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.front[0][i] = right[0][i]
       newCube.right[0][i] = back[0][i]
       newCube.back[0][i] = left[0][i]
@@ -44,7 +52,7 @@ function applyMove(cube: Cube, move: string): Cube {
   } else if (move === "U'") {
     newCube.top = rotateFaceCounter(top)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.front[0][i] = left[0][i]
       newCube.right[0][i] = front[0][i]
       newCube.back[0][i] = right[0][i]
@@ -53,7 +61,7 @@ function applyMove(cube: Cube, move: string): Cube {
   } else if (move === 'D') {
     newCube.bottom = rotateFace(bottom)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.front[2][i] = left[2][i]
       newCube.right[2][i] = front[2][i]
       newCube.back[2][i] = right[2][i]
@@ -62,7 +70,7 @@ function applyMove(cube: Cube, move: string): Cube {
   } else if (move === "D'") {
     newCube.bottom = rotateFaceCounter(bottom)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.front[2][i] = right[2][i]
       newCube.right[2][i] = back[2][i]
       newCube.back[2][i] = left[2][i]
@@ -71,127 +79,122 @@ function applyMove(cube: Cube, move: string): Cube {
   } else if (move === 'F') {
     newCube.front = rotateFace(front)
 
-    for (let i = 0; i < 3; i++) {
-      newCube.top[2][i] = left[2 - i][2]
+    for (const i of [0, 1, 2] as const) {
+      newCube.top[2][i] = left[REVERSE[i]][2]
       newCube.right[i][0] = top[2][i]
-      newCube.bottom[0][2 - i] = right[i][0]
+      newCube.bottom[0][REVERSE[i]] = right[i][0]
       newCube.left[i][2] = bottom[0][i]
     }
   } else if (move === "F'") {
     newCube.front = rotateFaceCounter(front)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[2][i] = right[i][0]
-      newCube.right[i][0] = bottom[0][2 - i]
-      newCube.bottom[0][2 - i] = left[2 - i][2]
-      newCube.left[i][2] = top[2][2 - i]
+      newCube.right[i][0] = bottom[0][REVERSE[i]]
+      newCube.bottom[0][REVERSE[i]] = left[REVERSE[i]][2]
+      newCube.left[i][2] = top[2][REVERSE[i]]
     }
   } else if (move === 'B') {
     newCube.back = rotateFace(back)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[0][i] = right[i][2]
-      newCube.right[i][2] = bottom[2][2 - i]
-      newCube.bottom[2][2 - i] = left[2 - i][0]
-      newCube.left[i][0] = top[0][2 - i]
+      newCube.right[i][2] = bottom[2][REVERSE[i]]
+      newCube.bottom[2][REVERSE[i]] = left[REVERSE[i]][0]
+      newCube.left[i][0] = top[0][REVERSE[i]]
     }
   } else if (move === "B'") {
     newCube.back = rotateFaceCounter(back)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[0][i] = left[i][0]
       newCube.right[i][2] = top[0][i]
-      newCube.bottom[2][2 - i] = right[i][2]
-      newCube.left[2 - i][0] = bottom[2][2 - i]
+      newCube.bottom[2][REVERSE[i]] = right[i][2]
+      newCube.left[REVERSE[i]][0] = bottom[2][REVERSE[i]]
     }
   } else if (move === 'L') {
     newCube.left = rotateFace(left)
 
-    for (let i = 0; i < 3; i++) {
-      newCube.top[i][0] = back[2 - i][2]
+    for (const i of [0, 1, 2] as const) {
+      newCube.top[i][0] = back[REVERSE[i]][2]
       newCube.front[i][0] = top[i][0]
       newCube.bottom[i][0] = front[i][0]
-      newCube.back[2 - i][2] = bottom[i][0]
+      newCube.back[REVERSE[i]][2] = bottom[i][0]
     }
   } else if (move === "L'") {
     newCube.left = rotateFaceCounter(left)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[i][0] = front[i][0]
       newCube.front[i][0] = bottom[i][0]
-      newCube.bottom[i][0] = back[2 - i][2]
-      newCube.back[2 - i][2] = top[i][0]
+      newCube.bottom[i][0] = back[REVERSE[i]][2]
+      newCube.back[REVERSE[i]][2] = top[i][0]
     }
   } else if (move === 'R') {
     newCube.right = rotateFace(right)
 
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[i][2] = front[i][2]
       newCube.front[i][2] = bottom[i][2]
-      newCube.bottom[i][2] = back[2 - i][0]
-      newCube.back[2 - i][0] = top[i][2]
+      newCube.bottom[i][2] = back[REVERSE[i]][0]
+      newCube.back[REVERSE[i]][0] = top[i][2]
     }
   } else if (move === "R'") {
     newCube.right = rotateFaceCounter(right)
 
-    for (let i = 0; i < 3; i++) {
-      newCube.top[i][2] = back[2 - i][0]
+    for (const i of [0, 1, 2] as const) {
+      newCube.top[i][2] = back[REVERSE[i]][0]
       newCube.front[i][2] = top[i][2]
       newCube.bottom[i][2] = front[i][2]
-      newCube.back[2 - i][0] = bottom[i][2]
+      newCube.back[REVERSE[i]][0] = bottom[i][2]
     }
   } else if (move === 'M') {
-    for (let i = 0; i < 3; i++) {
-      newCube.top[i][1] = back[2 - i][1]
+    for (const i of [0, 1, 2] as const) {
+      newCube.top[i][1] = back[REVERSE[i]][1]
       newCube.front[i][1] = top[i][1]
       newCube.bottom[i][1] = front[i][1]
-      newCube.back[2 - i][1] = bottom[i][1]
+      newCube.back[REVERSE[i]][1] = bottom[i][1]
     }
   } else if (move === "M'") {
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[i][1] = front[i][1]
       newCube.front[i][1] = bottom[i][1]
-      newCube.bottom[i][1] = back[2 - i][1]
-      newCube.back[2 - i][1] = top[i][1]
+      newCube.bottom[i][1] = back[REVERSE[i]][1]
+      newCube.back[REVERSE[i]][1] = top[i][1]
     }
   } else if (move === 'E') {
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.front[1][i] = right[1][i]
       newCube.right[1][i] = back[1][i]
       newCube.back[1][i] = left[1][i]
       newCube.left[1][i] = front[1][i]
     }
   } else if (move === "E'") {
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.front[1][i] = left[1][i]
       newCube.right[1][i] = front[1][i]
       newCube.back[1][i] = right[1][i]
       newCube.left[1][i] = back[1][i]
     }
   } else if (move === 'S') {
-    for (let i = 0; i < 3; i++) {
-      newCube.top[1][i] = left[2 - i][1]
-      newCube.left[i][1] = bottom[1][2 - i]
+    for (const i of [0, 1, 2] as const) {
+      newCube.top[1][i] = left[REVERSE[i]][1]
+      newCube.left[i][1] = bottom[1][REVERSE[i]]
       newCube.bottom[1][i] = right[i][1]
       newCube.right[i][1] = top[1][i]
     }
   } else if (move === "S'") {
-    for (let i = 0; i < 3; i++) {
+    for (const i of [0, 1, 2] as const) {
       newCube.top[1][i] = right[i][1]
       newCube.left[i][1] = top[1][i]
-      newCube.bottom[1][i] = left[2 - i][1]
-      newCube.right[i][1] = bottom[1][2 - i]
+      newCube.bottom[1][i] = left[REVERSE[i]][1]
+      newCube.right[i][1] = bottom[1][REVERSE[i]]
     }
   } else if (move === 'x') {
     newCube.right = rotateFace(right)
     newCube.left = rotateFaceCounter(left)
 
-    const [front, bottom, back, top] = [
-      [...cube.front],
-      [...cube.bottom],
-      [...cube.back],
-      [...cube.top]
-    ]
+    const { front, bottom, back, top } = cube
 
     newCube.top = front
     newCube.front = bottom
@@ -201,12 +204,7 @@ function applyMove(cube: Cube, move: string): Cube {
     newCube.right = rotateFaceCounter(right)
     newCube.left = rotateFace(left)
 
-    const [front, bottom, back, top] = [
-      [...cube.front],
-      [...cube.bottom],
-      [...cube.back],
-      [...cube.top]
-    ]
+    const { front, bottom, back, top } = cube
 
     newCube.top = rotateFace(rotateFace(back))
     newCube.front = top
@@ -216,12 +214,7 @@ function applyMove(cube: Cube, move: string): Cube {
     newCube.top = rotateFace(top)
     newCube.bottom = rotateFaceCounter(bottom)
 
-    const [front, back, left, right] = [
-      [...cube.front],
-      [...cube.back],
-      [...cube.left],
-      [...cube.right]
-    ]
+    const { front, back, left, right } = cube
 
     newCube.front = right
     newCube.right = back
@@ -231,12 +224,7 @@ function applyMove(cube: Cube, move: string): Cube {
     newCube.top = rotateFaceCounter(top)
     newCube.bottom = rotateFace(bottom)
 
-    const [front, back, left, right] = [
-      [...cube.front],
-      [...cube.back],
-      [...cube.left],
-      [...cube.right]
-    ]
+    const { front, back, left, right } = cube
 
     newCube.front = left
     newCube.right = front
@@ -246,12 +234,7 @@ function applyMove(cube: Cube, move: string): Cube {
     newCube.front = rotateFace(front)
     newCube.back = rotateFaceCounter(back)
 
-    const [top, bottom, left, right] = [
-      [...cube.top],
-      [...cube.bottom],
-      [...cube.left],
-      [...cube.right]
-    ]
+    const { top, bottom, left, right } = cube
 
     newCube.top = rotateFace(left)
     newCube.left = rotateFace(bottom)
@@ -261,12 +244,7 @@ function applyMove(cube: Cube, move: string): Cube {
     newCube.front = rotateFaceCounter(front)
     newCube.back = rotateFace(back)
 
-    const [top, bottom, left, right] = [
-      [...cube.top],
-      [...cube.bottom],
-      [...cube.left],
-      [...cube.right]
-    ]
+    const { top, bottom, left, right } = cube
 
     newCube.top = rotateFaceCounter(right)
     newCube.left = rotateFaceCounter(top)
@@ -309,7 +287,11 @@ function performMiddleMove(cube: Cube, move: string): Cube {
   return newCube
 }
 
-function applyMoves(cube: Cube, moves: string): Cube {
+function applyMoves(cube: Cube, moves: string | undefined): Cube {
+  if (!moves) {
+    return copyCube(cube)
+  }
+
   const movesArray = moves.split(' ')
 
   let resultCube = copyCube(cube)
@@ -336,7 +318,7 @@ function applyMoves(cube: Cube, moves: string): Cube {
   return resultCube
 }
 
-export const DEFAULT_CUBE = {
+export const DEFAULT_CUBE: Cube = {
   top: [
     ['Y', 'Y', 'Y'],
     ['Y', 'Y', 'Y'],

@@ -131,7 +131,7 @@ function CFOPF2L() {
                     </Flex>
                   </Flex>
                 </Box>
-                <Text size="xl">{algsetAlgs[index].alg[0]}</Text>
+                <Text size="xl">{algsetAlgs[index]?.alg[0]}</Text>
               </Flex>
               <Text
                 color="muted"
@@ -139,7 +139,7 @@ function CFOPF2L() {
                 mr="xl"
                 size="xl"
               >
-                {algsetAlgs[index].group}
+                {algsetAlgs[index]?.group}
               </Text>
             </Card>
           )

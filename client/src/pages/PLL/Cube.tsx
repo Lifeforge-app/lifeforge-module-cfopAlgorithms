@@ -34,7 +34,7 @@ function Cube({
 
       const end = refs.current[s2.n]
 
-      if (start === null || end === null) return
+      if (start == null || end == null) return
 
       const endRect = end.getBoundingClientRect()
 
@@ -114,12 +114,7 @@ function Cube({
           <Box height="1.25rem" width="1.25rem" />
           {cube.back[0].reverse().map((col, i) => (
             <Flex key={i} align="end" height="1.25rem" width="1.25rem">
-              <Box
-                bg={COLORS[col as keyof typeof COLORS]}
-                height="0.25rem"
-                r="full"
-                width="1.25rem"
-              />
+              <Box bg={COLORS[col]} height="0.25rem" r="full" width="1.25rem" />
             </Flex>
           ))}
           <Box height="1.25rem" width="1.25rem" />
@@ -160,12 +155,7 @@ function Cube({
           <Box height="1.25rem" width="1.25rem" />
           {cube.front[0].map((col, i) => (
             <Flex key={i} align="start" height="1.25rem" width="1.25rem">
-              <Box
-                bg={COLORS[col as keyof typeof COLORS]}
-                height="0.25rem"
-                r="full"
-                width="1.25rem"
-              />
+              <Box bg={COLORS[col]} height="0.25rem" r="full" width="1.25rem" />
             </Flex>
           ))}
           <Box height="1.25rem" width="1.25rem" />
